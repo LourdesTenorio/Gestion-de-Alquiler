@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\USUARIO\\Desktop\\OneDrive - CIBERTEC\\Escritorio\\Cibertec\\Sexto ciclo\\Desarrollo de aplicaciones I\\Proyecto\\GestionAlquiler\\GestionAlquiler\\GestionAlquiler.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\USUARIO\\Desktop\\OneDrive - CIBERTEC\\Escritorio\\Cibertec\\Sexto ciclo\\Desarrollo de aplicaciones I\\Proyecto\\GestionAlquiler\\GestionAlquiler\\GestionAlquiler.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\OneDrive - CIBERTEC\\Escritorio\\Cibertec\\Sexto ciclo\\Desarrollo de aplicaciones I\\Proyecto\\GestionAlquiler\\GestionAlquiler\\GestionAlquiler.csproj",
+        "projectName": "GestionAlquiler",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\OneDrive - CIBERTEC\\Escritorio\\Cibertec\\Sexto ciclo\\Desarrollo de aplicaciones I\\Proyecto\\GestionAlquiler\\GestionAlquiler\\GestionAlquiler.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\OneDrive - CIBERTEC\\Escritorio\\Cibertec\\Sexto ciclo\\Desarrollo de aplicaciones I\\Proyecto\\GestionAlquiler\\GestionAlquiler\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "FontAwesome": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.DataAnnotations": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Session": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "L:\\Programas\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

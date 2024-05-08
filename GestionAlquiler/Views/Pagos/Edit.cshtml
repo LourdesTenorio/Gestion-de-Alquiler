@@ -1,0 +1,109 @@
+﻿@model GestionAlquiler.Models.Pagos
+
+@{
+    ViewData["Title"] = "Edición del pago";
+}
+
+<h1>Edición del pago</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <fieldset>
+                    <legend>Datos del Pago</legend>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="idPago" class="control-label">ID de Pago:</label>
+                        <input asp-for="idPago" class="form-control" readonly />
+                        <span asp-validation-for="idPago" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="idAlquiler.idAlquiler" class="control-label">ID de Alquiler:</label>
+                        <input asp-for="idAlquiler.idAlquiler" class="form-control" readonly />
+                        <span asp-validation-for="idAlquiler.idAlquiler" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FechaPago" class="control-label">Fecha de Pago:</label>
+                        <input type="date" asp-for="FechaPago" class="form-control" placeholder="DD/MM/AAAA" />
+                        <span asp-validation-for="FechaPago" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MontoPagado" class="control-label">Monto Pagado:</label>
+                        <input asp-for="MontoPagado" class="form-control" readonly />
+                        <span asp-validation-for="MontoPagado" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MetodoPago" class="control-label">Método de Pago:</label>
+                        <select asp-for="MetodoPago" class="form-control">
+                            @if (ViewData["opcionesPago"] != null)
+                            {
+                                foreach (var option in ViewData["opcionesPago"] as List<string>)
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="MetodoPago" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Estado" class="control-label">Estado:</label>
+                        <select asp-for="Estado" class="form-control">
+                            @if (ViewData["opcionesEstado"] != null)
+                            {
+                                foreach (var option in ViewData["opcionesEstado"] as List<string>)
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            }
+                        </select>                        
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+                </fieldset>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    <a asp-action="ListadoPagos" class="btn btn-outline-info ml-2">↩️ Volver al listado</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="mensajeDiv" class="alert alert-success mt-4" style="display:@(ViewBag.mensaje != null ? "block" : "none")">
+    @ViewBag.mensaje
+</div>
+
+<div id="mensajeError" class="alert alert-danger" style="display:@(ViewBag.mensajeError != null ? "block" : "none")">
+    @ViewBag.mensajeError
+</div>
+
+@if (ViewBag.mensaje != null)
+{
+    <script>
+        // Redireccionar automáticamente después de 3 segundos si hay un mensaje de éxito
+        setTimeout(function () {
+            window.location.href = '@Url.Action("ListadoPagos", "Pagos")';
+        }, 1000); // 3000 milisegundos = 3 segundos
+    </script>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

@@ -1,0 +1,106 @@
+﻿@model GestionAlquiler.Models.Alquiler
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="mb-4">Edición del Alquiler</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <fieldset>
+                <legend>Datos del Alquiler</legend>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="refInquilino" class="control-label">Inquilino</label>
+                    <div>
+                        @Html.DropDownList("refInquilino.idInquilino", ViewBag.inquilino as SelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="refHabitacion" class="control-label">Habitación</label>
+                    <div>
+                        @Html.DropDownList("refHabitacion.idHabitacion", ViewBag.habitacion as SelectList,  new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+                    <div>
+                        <input type="date" asp-for="FechaInicio" class="form-control" placeholder="DD/MM/AAAA" />
+
+                        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Duracion" class="control-label">Duración (en días)</label>
+                    <div>
+                        <input asp-for="Duracion" class="form-control" />
+                        <span asp-validation-for="Duracion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MontoTotal" class="control-label">Monto Total</label>
+                    <div>
+                        <input asp-for="MontoTotal" class="form-control" readonly />
+                        <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EstadoPago" class="control-label">Estado de Pago</label>
+                    <div>
+                        <select asp-for="EstadoPago" class="form-control">
+                            @if (ViewData["opcionesEstado"] != null)
+                            {
+                                foreach (var option in ViewData["opcionesEstado"] as List<string>)
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="EstadoPago" class="text-danger"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Listado" class="btn btn-outline-info ml-2">↩️ Volver al listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="mensajeDiv" class="alert alert-success" style="display:@(ViewBag.mensaje != null ? "block" : "none")">
+    @ViewBag.mensaje
+</div>
+<div id="mensajeError" class="alert alert-danger" style="display:@(ViewBag.mensajeError != null ? "block" : "none")">
+    @ViewBag.mensajeError
+</div>
+
+@if (ViewBag.mensaje != null)
+{
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Listado", "Alquiler")';
+        }, 1000);
+    </script>
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

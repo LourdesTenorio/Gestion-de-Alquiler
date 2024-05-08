@@ -1,0 +1,80 @@
+﻿@model GestionAlquiler.Models.Inquilino
+
+@{
+    ViewData["Title"] = "Nuevo Inquilino";
+}
+
+<h1 class="mb-4">Nuevo Inquilino</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <fieldset>
+                    <legend>Datos del Inquilino</legend>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="nombre" class="control-label">Nombre:</label>
+                        <div>
+                            <input asp-for="nombre" class="form-control" />
+                            <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="dni" class="control-label">DNI:</label>
+                        <div>
+                            <input asp-for="dni" class="form-control" />
+                            <span asp-validation-for="dni" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="telefono" class="control-label">Teléfono:</label>
+                        <div>
+                            <input asp-for="telefono" class="form-control" />
+                            <span asp-validation-for="telefono" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="email" class="control-label">Email:</label>
+                        <div>
+                            <input asp-for="email" class="form-control" />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="💾 Crear" class="btn btn-success btn-lg" />
+                    <a asp-action="Index" class="btn btn-info btn-lg ml-2">↩️ Volver al listado</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="mensajeDiv" class="alert alert-success mt-4" style="display:@(ViewBag.mensaje != null ? "block" : "none")">
+    @ViewBag.mensaje
+</div>
+
+<div id="mensajeError" class="alert alert-danger" style="display:@(ViewBag.mensajeError != null ? "block" : "none")">
+    @ViewBag.mensajeError
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

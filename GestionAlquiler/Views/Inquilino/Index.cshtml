@@ -1,0 +1,54 @@
+﻿@model IEnumerable<GestionAlquiler.Models.Inquilino>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1 class="mb-4">Listado de Inquilinos</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.idInquilino</td>
+                    <td>@item.nombre</td>
+                    <td>@item.dni</td>
+                    <td>@item.telefono</td>
+                    <td>@item.email</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.idInquilino" class="btn btn-outline-warning" title="Editar">✏<i class="fas fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <form asp-action="Eliminar" asp-route-id="@item.idInquilino" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este inquilino?');">
+                            <button type="submit" class="btn btn-outline-danger" title="Eliminar">🗑<i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-lg">Registrar nuevo inquilino</a>
+    @ViewBag.mensaje
+</p>
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

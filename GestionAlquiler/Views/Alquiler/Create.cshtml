@@ -1,0 +1,134 @@
+﻿@model GestionAlquiler.Models.Alquiler
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="mb-4">Nuevo Alquiler</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <fieldset>
+                <legend>Datos del Alquiler</legend>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="refInquilino" class="control-label">Inquilino</label>
+                    <div>
+                        @Html.DropDownList("refInquilino.idInquilino", ViewBag.inquilino as SelectList,"Seleccione un inquilino", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="refHabitacion" class="control-label">Habitación</label>
+                    <div>
+                        @Html.DropDownList("refHabitacion.idHabitacion", ViewBag.habitacion as SelectList, "Seleccione una habitación",new { @class = "form-control", @id = "refHabitacion_idHabitacion" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+                    <div>
+                        <input type="date" asp-for="FechaInicio" class="form-control" placeholder="DD/MM/AAAA" />
+                        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Duracion" class="control-label">Duración (en días)</label>
+                    <div>
+                        <input asp-for="Duracion" class="form-control" id="Duracion" />
+                        <span asp-validation-for="Duracion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MontoTotal" class="control-label">Monto Total</label>
+                    <div>
+                        <input asp-for="MontoTotal" class="form-control" id="MontoTotal" readonly />
+                        <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="💾 Crear" class="btn btn-success" />
+                <a asp-action="Listado" class="btn btn-info ml-2">↩️ Volver al listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="mensajeDiv" class="alert alert-success mt-4" style="display:@(ViewBag.mensaje != null ? "block" : "none")">
+    @ViewBag.mensaje
+</div>
+<div id="mensajeError" class="alert alert-danger" style="display:@(ViewBag.mensajeError != null ? "block" : "none")">
+    @ViewBag.mensajeError
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+    <script>
+        $(document).ready(function () {
+            // Función para calcular el monto total y actualizar el campo correspondiente
+            function calcularMontoTotal() {
+                // Obtener el ID de la habitación seleccionada
+                var idHabitacion = $('#refHabitacion_idHabitacion').val();
+
+                // Realizar una solicitud AJAX para obtener el precio de la habitación
+                $.ajax({
+                    url: '/Alquiler/ObtenerPrecioHabitacion',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { idHabitacion: idHabitacion },
+                    success: function (data) {
+                        // Calcular el monto total
+                        var precioHabitacion = parseFloat(data);
+                        var duracion = parseInt($('#Duracion').val());
+                        var montoTotal = precioHabitacion * duracion;
+                        $('#MontoTotal').val(montoTotal.toFixed(2)); // Mostrar el monto total con dos decimales
+                    },
+                    error: function () {
+                        console.log('Error al obtener el precio de la habitación.');
+                    }
+                });
+            }
+
+            // Evento change para la selección de la habitación y la duración
+            $('#refHabitacion_idHabitacion, #Duracion').change(function () {
+                calcularMontoTotal();
+            });
+
+            // Llamar a la función al cargar la página
+            calcularMontoTotal();
+
+            // Hacer que el campo de monto total sea solo de lectura
+            $('#MontoTotal').prop('readonly', true);
+        });
+    </script>
+}
+@if (ViewBag.mensaje != null)
+{
+    <script>
+        // Redireccionar automáticamente después de 3 segundos si hay un mensaje de éxito
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Listado", "Alquiler")';
+        }, 1000); // 3000 milisegundos = 3 segundos
+        
+        
+    </script>
+    
+}
+
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
+                <i class="fa-solid fa-power-off"></i>Cerrar sesión
+            </a>
+        </li>
+    </ul>
+}

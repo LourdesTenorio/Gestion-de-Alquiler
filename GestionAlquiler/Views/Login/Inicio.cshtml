@@ -1,0 +1,73 @@
+﻿@model GestionAlquiler.Models.UsuarioModel
+@{
+    ViewData["Title"] = "Inicio de Sesión";
+}
+
+<style>
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+        background-color: white;
+        
+        border-radius: 5px;
+    }
+
+        .form-signin h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+
+        .form-signin input[type="submit"] {
+            margin: 20px auto ;
+            border-radius: 3px;
+            
+        }
+
+    .login-image {
+        display: block;
+        margin: 10px auto;
+        margin-bottom: 20px;
+        width: 150px; /* Ancho deseado */
+        height: auto; /* Altura ajustada automáticamente */
+        border-radius: 10px; /* Bordes redondeados */
+        
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <img class="login-image" src="https://cdn-icons-png.freepik.com/256/11864/11864810.png?semt=ais_hybrid" alt="Login Image">
+                <div class="card-body">
+                    <h3 class="card-title text-center">@ViewData["Title"]</h3>
+
+                    @using (Html.BeginForm("Inicio", "Login", FormMethod.Post, new { @class = "form-signin" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.TextBoxFor(m => m.usuario, new { @class = "form-control", placeholder = "Usuario", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.usuario, "", new { @class = "text-danger" })
+
+                        @Html.PasswordFor(m => m.clave, new { @class = "form-control", placeholder = "Contraseña" })
+                        @Html.ValidationMessageFor(m => m.clave, "", new { @class = "text-danger" })
+
+                        <div class="text-center">
+                            <!-- Agregado el div con clase text-center -->
+                            <i class="fa-solid fa-power-off"></i> <input type="submit" value="Iniciar Sesión" class="btn btn-lg btn-primary" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

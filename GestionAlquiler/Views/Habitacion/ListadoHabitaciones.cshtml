@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GestionAlquiler.Models.Habitacion>
+
+@{
+    ViewData["Title"] = "ListadoHabitaciones";
+}
+<blockquote class="blockquote">
+    <h1>Listado de Habitaciones</h1>
+</blockquote>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroHabitacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroHabitacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioAlquiler)
+                </td>
+                <td>
+                    <span id="estado-value">@Html.DisplayFor(modelItem => item.Estado)</span>
+                </td>
+                <td>
+                    @Html.ActionLink("✏", "Edit", new { id=item.idHabitacion }, new { @class = "btn btn-outline-warning" })
+                </td>
+                <td>
+                    @using (Html.BeginForm("Eliminar", "Habitacion", new { id = item.idHabitacion }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-outline-danger">🗑</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-lg">Registrar habitación</a>
+</p>
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

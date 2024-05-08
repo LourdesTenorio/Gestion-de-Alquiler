@@ -1,0 +1,70 @@
+﻿@model IEnumerable<GestionAlquiler.Models.Pagos>
+
+@{
+    ViewData["Title"] = "ListadoPagos";
+}
+
+<h1>Listado de Pagos</h1>
+
+
+<table class="table table-striped">
+    <thead >
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idAlquiler.idAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoPagado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetodoPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idAlquiler.idAlquiler)
+                </td>
+            <td>
+                    @item.FechaPago.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoPagado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetodoPago)
+            </td>
+            <td >
+                    <span id="estado-value">@Html.DisplayFor(modelItem => item.Estado)</span>
+            </td>
+
+           
+             <td>
+                        @Html.ActionLink("✏", "Edit", new { id=item.idPago  }, new { @class = "btn btn-outline-warning" })
+                        <!--@using (Html.BeginForm("Eliminar", "Pagos", new { id = item.idPago}, FormMethod.Post))
+                        {
+                        <button type="submit" class="btn btn-outline-danger">🗑</button>
+                    }*/-->
+             </td>
+            
+        </tr>
+}
+    </tbody>
+
+</table>
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}

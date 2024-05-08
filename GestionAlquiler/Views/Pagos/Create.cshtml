@@ -1,0 +1,76 @@
+﻿@model GestionAlquiler.Models.Pagos
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Registrando Pagos</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(model=>model.idAlquiler, htmlAttributes: new {@class="control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.DropDownList("idAlquiler.idAlquiler",ViewBag.alquiler as SelectList)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="FechaPago" class="control-label"></label>
+                <input asp-for="FechaPago" class="form-control" />
+                <span asp-validation-for="FechaPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoPagado" class="control-label"></label>
+                <input asp-for="MontoPagado" class="form-control" />
+                <span asp-validation-for="MontoPagado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetodoPago" class="control-label"></label>
+                <input asp-for="MetodoPago" class="form-control" />
+                <span asp-validation-for="MetodoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <input asp-for="Estado" class="form-control" />
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value=" 💾 Crear" class="btn btn-outline-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="ListadoPagos" class="btn btn-outline-info"> ↩️ Volver al listado</a>
+</div>
+
+<div id="mensajeDiv" class="alert alert-success" style="display:@(ViewBag.mensaje != null ? "block" : "none")">
+    @ViewBag.mensaje
+</div>
+<div id="mensajeError" class="alert alert-danger" style="display:@(ViewBag.mensajeError != null ? "block" : "none")">
+    @ViewBag.mensajeError
+</div>
+
+@if (ViewBag.mensaje != null)
+{
+    <script>
+        // Redireccionar automáticamente después de 3 segundos si hay un mensaje de éxito
+        setTimeout(function () {
+            window.location.href = '@Url.Action("ListadoPagos", "Pagos")';
+        }, 1000); // 3000 milisegundos = 3 segundos
+    </script>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section CerrarSesion {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+        </li>
+    </ul>
+}
